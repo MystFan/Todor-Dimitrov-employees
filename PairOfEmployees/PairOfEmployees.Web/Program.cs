@@ -12,6 +12,7 @@ namespace PairOfEmployees.Web
             builder.Services.AddSingleton<IEmplyeePairService, EmplyeePairService>();
             builder.Services.AddSingleton<IEmplyeePairParser, EmplyeePairParser>();
             builder.Services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+            builder.Services.AddMemoryCache();
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using X.PagedList;
 
 namespace PairOfEmployees.Web.Models
 {
@@ -7,7 +8,7 @@ namespace PairOfEmployees.Web.Models
         [Required(ErrorMessage = "Please select a file.")]
         public IFormFile? File { get; set; }
 
-        public PairResult[] Results { get; set; } = [];
+        public IPagedList<PairResult>? Results { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
