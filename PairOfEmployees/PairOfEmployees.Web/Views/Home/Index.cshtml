@@ -1,0 +1,69 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+@model PairOfEmployees.Web.Models.UploadModel
+
+<div class="text-center">
+    <form asp-action="Index" asp-controller="Home" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+        <div class="mb-3">
+            <label asp-for="File" class="form-label">
+                CSV File
+            </label>
+
+            <input id="file" asp-for="File"
+                   type="file"
+                   class="form-control"
+                   accept=".csv"
+                   aria-describedby="fileHelp" />
+
+            <div id="fileHelp" class="form-text">
+                Only CSV files are allowed. Maximum size: 2 MB.
+            </div>
+
+            <span id="fileError" asp-validation-for="File" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Upload
+        </button>
+    </form>
+
+    @if (Model?.Results != null && Model.Results.Any())
+    {
+        <div class="mt-4">
+            <h5>Pairs working on same project</h5>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Employee ID #1</th>
+                        <th>Employee ID #2</th>
+                        <th>Project ID</th>
+                        <th>Days worked</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var r in Model.Results)
+                    {
+                        <tr>
+                            <td>@r.FirstEmployeeId</td>
+                            <td>@r.SecondEmployeeId</td>
+                            <td>@r.ProjectId</td>
+                            <td>@r.DaysWorked</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <h5>No pairs working on same project</h5>
+    }
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
+</div>
